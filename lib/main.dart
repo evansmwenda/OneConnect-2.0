@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:oneconnect/screens/home_page.dart';
+import 'package:oneconnect/screens/login.dart';
+import 'package:oneconnect/screens/register.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+//    debugShowCheckedModeBanner: false,//uncomment this line in production
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Login(),//MyApp(), //splash screen page
+        Login.routeName: (context) => Login(),//login page
+        Register.routeName: (context) => Register(),//register page
+        Homepage.routeName: (context) => Homepage(),//homepage
+
+
+      },
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
