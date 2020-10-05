@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:oneconnect/screens/home_page.dart';
+import 'package:oneconnect/screens/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
-import 'package:http/http.dart'  as http;
+import 'package:http/http.dart' as http;
 import 'package:oneconnect/constants/constants.dart' as Constants;
 
 class Login extends StatefulWidget {
@@ -40,152 +42,174 @@ class _LoginState extends State<Login> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("VertexPay"),
+        title: Text("OneConnect"),
         // Set the background color of the App Bar
       ),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
-          : ListView(
-        padding: EdgeInsets.all(30.0),
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 10.0,
-              ),
-              Container(
-                width: 150,
-                height: 150,
-                child: Image(
-                  image: AssetImage('images/logo.webp'),
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      // The validator receives the text that the user has entered.
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a valid ID Number';
-                        }
-                        return null;
-                      },
-                      cursorColor: Colors.green,
-                      controller: idController,
-                      focusNode: myFocusNode,
-                      decoration: InputDecoration(
-                          labelText: "ID Number",
-                          contentPadding: EdgeInsets.all(12.0)),
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    TextFormField(
-                      // The validator receives the text that the user has entered.
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a valid pin';
-                        }
-                        return null;
-                      },
-                      onFieldSubmitted: (_) => _loginUser(),
-                      maxLength: 4,
-                      obscureText: _obscureText,
-                      cursorColor: Colors.green,
-                      controller: pinController,
-                      decoration: InputDecoration(
-                        labelText: "Pin",
-                        contentPadding: EdgeInsets.all(12.0),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              //change the state upon click
-                              _obscureText = !_obscureText;
-                            });
-                          },
+          : Container(
+              height: MediaQuery.of(context).size.height,
+              child: ListView(
+                padding: EdgeInsets.all(30.0),
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Container(
+                        width: 150,
+                        height: 150,
+                        child: Image(
+                          image: AssetImage('images/connectdark.png'),
                         ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              // The validator receives the text that the user has entered.
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please enter a valid E-mail Address';
+                                }
+                                return null;
+                              },
+                              cursorColor: Colors.blue,
+                              controller: idController,
+                              focusNode: myFocusNode,
+                              decoration: InputDecoration(
+                                  labelText: "Email Address",
+                                  contentPadding: EdgeInsets.all(12.0)),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                              // The validator receives the text that the user has entered.
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please enter a valid password';
+                                }
+                                return null;
+                              },
+                              onFieldSubmitted: (_) => _loginUser(),
+                              obscureText: _obscureText,
+                              cursorColor: Colors.blue,
+                              controller: pinController,
+                              decoration: InputDecoration(
+                                labelText: "Password",
+                                contentPadding: EdgeInsets.all(12.0),
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _obscureText
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      //change the state upon click
+                                      _obscureText = !_obscureText;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
 //                    SizedBox(
 //                      height: 5.0,
 //                    ),
-                    SizedBox(
-                      height: 20.0,
-                      child: FlatButton(
-                        child: Text(
-                          "Forgot password?",
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                        textColor: Colors.green,
-                        onPressed: () => {},
-                      ),
-                    ),
+                            SizedBox(
+                              height: 25.0,
+                              child: FlatButton(
+                                child: Text(
+                                  "Forgot password?",
+                                  style: TextStyle(fontSize: 16.0),
+                                ),
+                                textColor: Colors.blue,
+                                onPressed: () => {},
+                              ),
+                            ),
 
-                    Container(
-                      margin: EdgeInsets.only(
-                          left: 30.0, right: 30.0, top: 10.0),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 30.0, right: 30.0, top: 20.0),
 //                      width: 300.0,
 //                      height: 50.0,
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 50.0, // match_parent
-                        child: RaisedButton(
-                          color: Colors.green,
-                          onPressed: () {
-                            _loginUser();
-                          },
-                          child: Text(
-                            'Sign In',
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 16.0),
-                          ),
+                              child: SizedBox(
+                                width: double.infinity,
+                                height: 50.0, // match_parent
+                                child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(28.0),
+                                  ),
+                                  color: Colors.blue,
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, Homepage.routeName);
+                                   // _loginUser();
+                                  },
+                                  child: Text(
+                                    'Sign In',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 100.0,
+                            ),
+//                            Expanded(
+//                              child: Align(
+//                                alignment: FractionalOffset.bottomCenter,
+//                                child: MaterialButton(
+//                                  onPressed: () => {},
+//                                  child: Text('REGISTER'),
+//                                ),
+//                              ),
+//                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    "Don't have an account?",
+                                    style: TextStyle(fontSize: 18.0),
+                                  ),
+                                  InkWell(
+                                    child: Center(
+                                      child: Text(
+                                        "Sign Up",
+                                        style: TextStyle(
+                                          fontSize: 17.0,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        Register.routeName,
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 100.0,
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Don't have an account?",
-                          style: TextStyle(fontSize: 18.0),
-                        ),
-                        FlatButton(
-                          padding: EdgeInsets.only(left: 0.0),
-                          child: Text(
-                            "Sign Up",
-                            style: TextStyle(
-                              fontSize: 17.0,
-                              color: Colors.green,
-                            ),
-                          ),
-                          onPressed: () => {
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                    ],
+                  )
+                ],
               ),
-            ],
-          )
-        ],
-      ),
+            ),
     );
   }
 
@@ -208,7 +232,6 @@ class _LoginState extends State<Login> {
         setState(() => _isLoading = true);
 
         _makePostRequest(idController.text, pinController.text);
-
       }
     }
   }
