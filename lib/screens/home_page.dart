@@ -36,8 +36,34 @@ class _State extends State<Homepage> {
       appBar: AppBar(
         title: Text("OneConnect"),
       ),
-      body: Center(
-        child: Text("Home page"),
+      body: Column(
+        children: <Widget>[
+          Container(
+            height: 350.0,
+            margin: EdgeInsets.symmetric(vertical: 5.0,horizontal: 5.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              color: Colors.blue,
+            ),
+
+            child: Center(
+              child: Text("HomePage"),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical:10.0,horizontal: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text("Account"),
+                Text("Account"),
+              ],
+            ),
+          ),
+          Center(
+            child: Text("This is a text view"),
+          ),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
