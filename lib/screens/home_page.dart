@@ -39,8 +39,8 @@ class _State extends State<Homepage> {
       body: Column(
         children: <Widget>[
           Container(
-            height: 350.0,
-            margin: EdgeInsets.symmetric(vertical: 5.0,horizontal: 5.0),
+            height: 250.0,
+            margin: EdgeInsets.symmetric(vertical: 5.0,horizontal: 8.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
               color: Colors.blue,
@@ -51,12 +51,19 @@ class _State extends State<Homepage> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical:10.0,horizontal: 20.0),
+            padding: EdgeInsets.symmetric(vertical:10.0,horizontal: 30.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Account"),
-                Text("Account"),
+                IconButton(
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.blue,
+                  ),
+                  onPressed: (){},
+
+                ),
               ],
             ),
           ),
